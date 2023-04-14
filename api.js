@@ -34,7 +34,7 @@ const obtenerDatosGithub = async (e) => {
   if(valueToSearch){
     const response = await fetch(`https://api.github.com/users/${valueToSearch}`);
     const data = await response.json();
-    if(data){
+    if(data && data.message!='Not Found'){
       console.log(data)
       document.querySelector('img[id="img-profile"]').src=data.avatar_url;
       document.querySelector('#github-name').textContent = data.login;
@@ -46,6 +46,8 @@ const obtenerDatosGithub = async (e) => {
       document.querySelector('#github-joined').textContent = getDate(data.created_at);
 
 
+  }else{
+    alert("El usuario que haz ingresado puede que no exista, intenta con otro")
   }
 
 };
